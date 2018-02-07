@@ -1,0 +1,840 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+	\usepackage[T2A]{fontenc}
+	\usepackage[english, russian, ukrainian]{babel}
+	\usepackage{mathtools}
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Lab1}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LinearRegression}
+        \PY{k+kn}{import} \PY{n+nn}{inspect}
+\end{Verbatim}
+
+
+    \subsubsection{Загружаємо дані та візуалізуємо
+їх}\label{ux437ux430ux433ux440ux443ux436ux430ux454ux43cux43e-ux434ux430ux43dux456-ux442ux430-ux432ux456ux437ux443ux430ux43bux456ux437ux443ux454ux43cux43e-ux457ux445}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{v14.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{data}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:}     Price  Demand  Supply
+        0     7.0     183       5
+        1     8.5     160      19
+        2     9.3     141      41
+        3    10.0     135      55
+        4    11.0     121      70
+        5    12.3     102      93
+        6    13.1      80     123
+        7    14.0      58     155
+        8    15.8      44     174
+        9    16.5      21     199
+        10   18.0      10     213
+        11   20.0       5     220
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Demand}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Supply}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Lab1_files/Lab1_4_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} Необхідні константи}
+        \PY{n}{p\PYZus{}dens} \PY{o}{=} \PY{l+m+mi}{200}
+        \PY{n}{min\PYZus{}pr}\PY{p}{,} \PY{n}{max\PYZus{}pr} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{data}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{prices} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{min\PYZus{}pr}\PY{p}{,} \PY{n}{max\PYZus{}pr}\PY{p}{,} \PY{n}{p\PYZus{}dens}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{Знаходження аналітичного вигляду функція попиту та
+пропозиції}\label{ux437ux43dux430ux445ux43eux434ux436ux435ux43dux43dux44f-ux430ux43dux430ux43bux456ux442ux438ux447ux43dux43eux433ux43e-ux432ux438ux433ux43bux44fux434ux443-ux444ux443ux43dux43aux446ux456ux44f-ux43fux43eux43fux438ux442ux443-ux442ux430-ux43fux440ux43eux43fux43eux437ux438ux446ux456ux457}
+
+Функції попиту та пропозиції будемо знаходити у вигляді:
+
+\begin{align}
+Q=\alpha f(P)+\beta
+\end{align}
+
+де \(f\) задовольняє таким властивостям:
+
+\begin{align}
+\frac{\partial f}{\partial P} &< 0\ \ \ \ \frac{\partial^2 f}{\partial P^2} >= 0\ \ \ \ (для\ функції\ попиту) \\
+\frac{\partial f}{\partial P} &> 0\ \ \ \ \frac{\partial^2 f}{\partial P^2} <= 0\ \ \ \ (для\ функції\ пропозиції) \\
+\end{align}
+
+Знайдемо значення \(\alpha\) та \(\beta\) за допомогою лінійної регресії
+з квадратичною функцією втрат. \textbackslash{} Нехай дано вибірку
+\(Q^*\), \(P^*\). Тоді потрібно мінімізувати функціонал:
+
+\begin{align}
+L(P^*,Q^*)=(\alpha f(P^*)+\beta - Q^*)^T(\alpha f(P^*)+\beta - Q^*)
+\end{align}
+
+Тоді параметри набувають вигляду:
+
+\begin{align}
+(\alpha, \beta) &= (X^T X)^{-1} X^T Q^*\ ,де\\
+X &= \begin{bmatrix}f(P^*_1) & 1\\f(P^*_2) & 1\\... & ... \\ f(P^*_n) & 1\end{bmatrix}\ ,де\ n\ -\ кількість\ елементів\ у\ вибірці
+\end{align}
+
+Модель лінійної регресії реалізований в класі
+sklearn.linear\_model.LinearRegression.
+
+    \subsubsection{Вибір функції
+f}\label{ux432ux438ux431ux456ux440-ux444ux443ux43dux43aux446ux456ux457-f}
+
+Функцію \(f\) будемо вибирати перебором. Визначимо множини функцій
+\(f_{d\_all}\) та \(f_{s\_all}\). Виберемо по одній функції з цих множин
+які максимізують значення коефіцієнта детермінації.
+
+    \section{Апроксимація
+попиту}\label{ux430ux43fux440ux43eux43aux441ux438ux43cux430ux446ux456ux44f-ux43fux43eux43fux438ux442ux443}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{f\PYZus{}d\PYZus{}all} \PY{o}{=} \PY{p}{[}
+            \PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{l+m+mi}{1} \PY{o}{/} \PY{n}{x}\PY{p}{,}
+            \PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{l+m+mi}{1} \PY{o}{/} \PY{p}{(}\PY{n}{x} \PY{o}{*}\PY{o}{*} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+            \PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{l+m+mi}{1} \PY{o}{/} \PY{p}{(}\PY{n}{x} \PY{o}{*}\PY{o}{*} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+            \PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{l+m+mi}{1} \PY{o}{/} \PY{p}{(}\PY{n}{x} \PY{o}{*}\PY{o}{*} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+            \PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{l+m+mi}{1} \PY{o}{/} \PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+        \PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{k}{def} \PY{n+nf}{generate\PYZus{}features}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{f}\PY{p}{)}\PY{p}{:}
+            \PY{n}{X} \PY{o}{=} \PY{n}{X}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+            \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{[}\PY{n}{f}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{)}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+        
+        \PY{k}{def} \PY{n+nf}{find\PYZus{}f}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{f\PYZus{}all}\PY{p}{)}\PY{p}{:}
+            \PY{n}{curr\PYZus{}max} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mf}{1e9}
+            \PY{n}{max\PYZus{}ind} \PY{o}{=} \PY{l+m+mi}{0}
+            \PY{k}{for} \PY{n}{ind}\PY{p}{,} \PY{n}{f} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{f\PYZus{}all}\PY{p}{)}\PY{p}{:}
+                \PY{n}{model} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}
+                \PY{n}{generated\PYZus{}features} \PY{o}{=} \PY{n}{generate\PYZus{}features}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{f}\PY{p}{)}
+                \PY{n}{model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{generated\PYZus{}features}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+                \PY{n}{curr\PYZus{}score} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{generated\PYZus{}features}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+                \PY{k}{if} \PY{n}{curr\PYZus{}score} \PY{o}{\PYZgt{}} \PY{n}{curr\PYZus{}max}\PY{p}{:}
+                    \PY{n}{max\PYZus{}ind} \PY{o}{=} \PY{n}{ind}
+                    \PY{n}{curr\PYZus{}max} \PY{o}{=} \PY{n}{curr\PYZus{}score}
+            \PY{k}{return} \PY{n}{f\PYZus{}all}\PY{p}{[}\PY{n}{max\PYZus{}ind}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{f\PYZus{}d} \PY{o}{=} \PY{n}{find\PYZus{}f}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Demand}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{f\PYZus{}d\PYZus{}all}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{inspect}\PY{o}{.}\PY{n}{getsourcelines}\PY{p}{(}\PY{n}{f\PYZus{}d}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:} (['    lambda x: 1 / (x ** (1/4)),\textbackslash{}n'], 5)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{model\PYZus{}demand} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{model\PYZus{}demand}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{generate\PYZus{}features}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{f\PYZus{}d}\PY{p}{)}\PY{p}{,} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Demand}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} LinearRegression(copy\_X=True, fit\_intercept=True, n\_jobs=1, normalize=False)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{k}{def} \PY{n+nf}{Q\PYZus{}d}\PY{p}{(}\PY{n}{P}\PY{p}{)}\PY{p}{:}
+             \PY{n}{P} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{f\PYZus{}d}\PY{p}{(}\PY{n}{P}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+             \PY{n}{to\PYZus{}predict} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{[}\PY{n}{P}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n}{P}\PY{o}{.}\PY{n}{shape}\PY{p}{)}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{k}{return} \PY{n}{model\PYZus{}demand}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{to\PYZus{}predict}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{Q\PYZus{}d}\PY{p}{(}\PY{n}{prices}\PY{p}{)}\PY{p}{,} \PY{n}{prices}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Demand}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Lab1_files/Lab1_15_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{model\PYZus{}demand}\PY{o}{.}\PY{n}{coef\PYZus{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} array([ 1388.51596284,     0.        ])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Q = }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{/P}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n+nb}{round}\PY{p}{(}\PY{n}{model\PYZus{}demand}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Q = 1388.52/P
+
+    \end{Verbatim}
+
+    \section{Апроксимація
+пропозиції}\label{ux430ux43fux440ux43eux43aux441ux438ux43cux430ux446ux456ux44f-ux43fux440ux43eux43fux43eux437ux438ux446ux456ux457}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{f\PYZus{}s\PYZus{}all} \PY{o}{=} \PY{p}{[}
+             \PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x} \PY{o}{*}\PY{o}{*} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,}
+             \PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x} \PY{o}{*}\PY{o}{*} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,}
+             \PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x} \PY{o}{*}\PY{o}{*} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{,}
+             \PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+         \PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{f\PYZus{}s} \PY{o}{=} \PY{n}{find\PYZus{}f}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Supply}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{f\PYZus{}s\PYZus{}all}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{inspect}\PY{o}{.}\PY{n}{getsourcelines}\PY{p}{(}\PY{n}{f\PYZus{}s}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:} (['    lambda x: x ** (1/2),\textbackslash{}n'], 2)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{model\PYZus{}supply} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{model\PYZus{}supply}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{generate\PYZus{}features}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{f\PYZus{}s}\PY{p}{)}\PY{p}{,} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Supply}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:} LinearRegression(copy\_X=True, fit\_intercept=True, n\_jobs=1, normalize=False)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{k}{def} \PY{n+nf}{Q\PYZus{}s}\PY{p}{(}\PY{n}{P}\PY{p}{)}\PY{p}{:}
+             \PY{n}{P} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{f\PYZus{}s}\PY{p}{(}\PY{n}{P}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+             \PY{n}{to\PYZus{}predict} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{[}\PY{n}{P}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n}{P}\PY{o}{.}\PY{n}{shape}\PY{p}{)}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{k}{return} \PY{n}{model\PYZus{}supply}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{to\PYZus{}predict}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{Q\PYZus{}s}\PY{p}{(}\PY{n}{prices}\PY{p}{)}\PY{p}{,} \PY{n}{prices}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Supply}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Lab1_files/Lab1_24_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{model\PYZus{}supply}\PY{o}{.}\PY{n}{coef\PYZus{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}21}]:} array([ 135.57340956,    0.        ])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Q = }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{*log(P)}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n+nb}{round}\PY{p}{(}\PY{n}{model\PYZus{}supply}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Q = 135.57*log(P)
+
+    \end{Verbatim}
+
+    \section{Точка ринкової
+рівноваги}\label{ux442ux43eux447ux43aux430-ux440ux438ux43dux43aux43eux432ux43eux457-ux440ux456ux432ux43dux43eux432ux430ux433ux438}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{k}{def} \PY{n+nf}{intersection}\PY{p}{(}\PY{n}{f1}\PY{p}{,} \PY{n}{f2}\PY{p}{,} \PY{n}{values}\PY{p}{)}\PY{p}{:}
+             \PY{n}{ind} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argmin}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{f1}\PY{p}{(}\PY{n}{values}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{f2}\PY{p}{(}\PY{n}{values}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+             \PY{k}{return} \PY{p}{(}\PY{n}{values}\PY{p}{[}\PY{n}{ind}\PY{p}{]}\PY{p}{,} \PY{p}{(}\PY{p}{(}\PY{n}{f1}\PY{p}{(}\PY{n}{values}\PY{p}{[}\PY{n}{ind}\PY{p}{]}\PY{p}{)} \PY{o}{+} \PY{n}{f2}\PY{p}{(}\PY{n}{values}\PY{p}{[}\PY{n}{ind}\PY{p}{]}\PY{p}{)}\PY{p}{)} \PY{o}{/} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{balance\PYZus{}point} \PY{o}{=} \PY{n}{intersection}\PY{p}{(}\PY{n}{Q\PYZus{}d}\PY{p}{,} \PY{n}{Q\PYZus{}s}\PY{p}{,} \PY{n}{prices}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{Q\PYZus{}d}\PY{p}{(}\PY{n}{prices}\PY{p}{)}\PY{p}{,} \PY{n}{prices}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{Q\PYZus{}s}\PY{p}{(}\PY{n}{prices}\PY{p}{)}\PY{p}{,} \PY{n}{prices}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{balance\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{balance\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Точка ринкової рівноваги. P:}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{, Q:}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n+nb}{round}\PY{p}{(}\PY{n}{balance\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{balance\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Lab1_files/Lab1_30_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Точка ринкової рівноваги. P:12.0, Q:96.0
+
+    \end{Verbatim}
+
+    \subsubsection{Cтійкість точки
+рівноваги}\label{cux442ux456ux439ux43aux456ux441ux442ux44c-ux442ux43eux447ux43aux438-ux440ux456ux432ux43dux43eux432ux430ux433ux438}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{k}{def} \PY{n+nf}{arc\PYZus{}elasticity}\PY{p}{(}\PY{n}{f}\PY{p}{,} \PY{n}{values}\PY{p}{)}\PY{p}{:} \PY{c+c1}{\PYZsh{} returns len(values) \PYZhy{} 1 numbers}
+             \PY{n}{v1}\PY{p}{,} \PY{n}{v2} \PY{o}{=} \PY{n}{values}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{values}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}
+             \PY{n}{f1}\PY{p}{,} \PY{n}{f2} \PY{o}{=} \PY{n}{f}\PY{p}{(}\PY{n}{v1}\PY{p}{)}\PY{p}{,} \PY{n}{f}\PY{p}{(}\PY{n}{v2}\PY{p}{)}
+             \PY{k}{return} \PY{p}{(}\PY{n}{f2} \PY{o}{\PYZhy{}} \PY{n}{f1}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{n}{v2} \PY{o}{\PYZhy{}} \PY{n}{v1}\PY{p}{)} \PY{o}{*} \PY{p}{(}\PY{n}{v2} \PY{o}{+} \PY{n}{v1}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{n}{f2} \PY{o}{+} \PY{n}{f1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argmin}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{fabs}\PY{p}{(}\PY{n}{prices} \PY{o}{\PYZhy{}} \PY{n}{balance\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{is\PYZus{}stable} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{fabs}\PY{p}{(}\PY{n}{arc\PYZus{}elasticity}\PY{p}{(}\PY{n}{Q\PYZus{}d}\PY{p}{,} \PY{n}{prices}\PY{p}{[}\PY{n}{\PYZus{}}\PY{p}{:}\PY{p}{(}\PY{n}{\PYZus{}} \PY{o}{+} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{]}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{n}{np}\PY{o}{.}\PY{n}{fabs}\PY{p}{(}\PY{n}{arc\PYZus{}elasticity}\PY{p}{(}\PY{n}{Q\PYZus{}s}\PY{p}{,} \PY{n}{prices}\PY{p}{[}\PY{n}{\PYZus{}}\PY{p}{:}\PY{p}{(}\PY{n}{\PYZus{}} \PY{o}{+} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Точка ринкової рівноваги }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{стабільна}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}} \PY{k}{if} \PY{n}{is\PYZus{}stable} \PY{k}{else} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{не }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Точка ринкової рівноваги не стабільна
+
+    \end{Verbatim}
+
+    \section{Дугова
+еластичність}\label{ux434ux443ux433ux43eux432ux430-ux435ux43bux430ux441ux442ux438ux447ux43dux456ux441ux442ux44c}
+
+    \subsubsection{Попит}\label{ux43fux43eux43fux438ux442}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{prices}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{arc\PYZus{}elasticity}\PY{p}{(}\PY{n}{Q\PYZus{}d}\PY{p}{,} \PY{n}{prices}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Lab1_files/Lab1_38_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Попит }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{є абсолютно еластичним}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}} \PY{k}{if} \PY{n}{np}\PY{o}{.}\PY{n}{all}\PY{p}{(}\PY{n+nb}{abs}\PY{p}{(}\PY{n}{arc\PYZus{}elasticity}\PY{p}{(}\PY{n}{Q\PYZus{}d}\PY{p}{,} \PY{n}{prices}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{1}\PY{p}{)} \PY{k}{else} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{не }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Попит є абсолютно еластичним
+
+    \end{Verbatim}
+
+    \subsubsection{Пропозиція}\label{ux43fux440ux43eux43fux43eux437ux438ux446ux456ux44f}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{prices}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{arc\PYZus{}elasticity}\PY{p}{(}\PY{n}{Q\PYZus{}s}\PY{p}{,} \PY{n}{prices}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Lab1_files/Lab1_41_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Пропозиція }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{є абсолютно еластичною}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}} \PY{k}{if} \PY{n}{np}\PY{o}{.}\PY{n}{all}\PY{p}{(}\PY{n+nb}{abs}\PY{p}{(}\PY{n}{arc\PYZus{}elasticity}\PY{p}{(}\PY{n}{Q\PYZus{}s}\PY{p}{,} \PY{n}{prices}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{1}\PY{p}{)} \PY{k}{else} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{не }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Пропозиція є абсолютно еластичною
+
+    \end{Verbatim}
+
+    \section{Вплив держави на
+ціни}\label{ux432ux43fux43bux438ux432-ux434ux435ux440ux436ux430ux432ux438-ux43dux430-ux446ux456ux43dux438}
+
+\subsubsection{Податок та субсидії на одну із сторін (споживач,
+виробник)}\label{ux43fux43eux434ux430ux442ux43eux43a-ux442ux430-ux441ux443ux431ux441ux438ux434ux456ux457-ux43dux430-ux43eux434ux43dux443-ux456ux437-ux441ux442ux43eux440ux456ux43d-ux441ux43fux43eux436ux438ux432ux430ux447-ux432ux438ux440ux43eux431ux43dux438ux43a}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n}{bal\PYZus{}tax\PYZus{}dem} \PY{o}{=} \PY{n}{bal\PYZus{}tax\PYZus{}sup} \PY{o}{=} \PY{n}{bal\PYZus{}tax\PYZus{}dem} \PY{o}{=} \PY{n}{bal\PYZus{}tax\PYZus{}sub} \PY{o}{=} \PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{n}{tax\PYZus{}dem} \PY{o}{=} \PY{l+m+mi}{5}
+         \PY{n}{tax\PYZus{}sup} \PY{o}{=} \PY{l+m+mi}{5}
+         \PY{n}{subsidy\PYZus{}dem} \PY{o}{=} \PY{l+m+mi}{5}
+         \PY{n}{subsidy\PYZus{}sup} \PY{o}{=} \PY{l+m+mi}{5}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{Q\PYZus{}d\PYZus{}tax} \PY{o}{=} \PY{k}{lambda} \PY{n}{p}\PY{p}{:} \PY{n}{Q\PYZus{}d}\PY{p}{(}\PY{n}{p} \PY{o}{+} \PY{n}{tax\PYZus{}dem}\PY{p}{)}
+         \PY{n}{Q\PYZus{}d\PYZus{}subsidy} \PY{o}{=} \PY{k}{lambda} \PY{n}{p}\PY{p}{,}\PY{p}{:} \PY{n}{Q\PYZus{}d}\PY{p}{(}\PY{n}{p} \PY{o}{\PYZhy{}} \PY{n}{subsidy\PYZus{}dem}\PY{p}{)}
+         \PY{n}{Q\PYZus{}s\PYZus{}tax} \PY{o}{=} \PY{k}{lambda} \PY{n}{p}\PY{p}{:} \PY{n}{Q\PYZus{}s}\PY{p}{(}\PY{n}{p} \PY{o}{+} \PY{n}{tax\PYZus{}sup}\PY{p}{)}
+         \PY{n}{Q\PYZus{}s\PYZus{}subsidy} \PY{o}{=} \PY{k}{lambda} \PY{n}{p}\PY{p}{:} \PY{n}{Q\PYZus{}s}\PY{p}{(}\PY{n}{p} \PY{o}{\PYZhy{}} \PY{n}{subsidy\PYZus{}sup}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{n}{bal\PYZus{}tax\PYZus{}dem} \PY{o}{=} \PY{n}{intersection}\PY{p}{(}\PY{n}{Q\PYZus{}d\PYZus{}tax}\PY{p}{,} \PY{n}{Q\PYZus{}s}\PY{p}{,} \PY{n}{prices}\PY{p}{)}
+         \PY{n}{bal\PYZus{}tax\PYZus{}sup} \PY{o}{=} \PY{n}{intersection}\PY{p}{(}\PY{n}{Q\PYZus{}d}\PY{p}{,} \PY{n}{Q\PYZus{}s\PYZus{}tax}\PY{p}{,} \PY{n}{prices}\PY{p}{)}
+         \PY{n}{bal\PYZus{}subsidy\PYZus{}dem} \PY{o}{=} \PY{n}{intersection}\PY{p}{(}\PY{n}{Q\PYZus{}d\PYZus{}subsidy}\PY{p}{,} \PY{n}{Q\PYZus{}s}\PY{p}{,} \PY{n}{prices}\PY{p}{)}
+         \PY{n}{bal\PYZus{}subsidy\PYZus{}sup} \PY{o}{=} \PY{n}{intersection}\PY{p}{(}\PY{n}{Q\PYZus{}d}\PY{p}{,} \PY{n}{Q\PYZus{}s\PYZus{}subsidy}\PY{p}{,} \PY{n}{prices}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{n}{bal\PYZus{}points1} \PY{o}{=} \PY{p}{[}\PY{n}{bal\PYZus{}tax\PYZus{}dem}\PY{p}{,} \PY{n}{bal\PYZus{}subsidy\PYZus{}sup}\PY{p}{,} \PY{n}{bal\PYZus{}tax\PYZus{}sup}\PY{p}{,} \PY{n}{bal\PYZus{}subsidy\PYZus{}dem}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{Q\PYZus{}d}\PY{p}{(}\PY{n}{prices}\PY{p}{)}\PY{p}{,} \PY{n}{prices}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{Q\PYZus{}s}\PY{p}{(}\PY{n}{prices}\PY{p}{)}\PY{p}{,} \PY{n}{prices}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{Q\PYZus{}s\PYZus{}tax}\PY{p}{(}\PY{n}{prices}\PY{p}{)}\PY{p}{,} \PY{n}{prices}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{Q\PYZus{}s\PYZus{}subsidy}\PY{p}{(}\PY{n}{prices}\PY{p}{)}\PY{p}{,} \PY{n}{prices}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{Q\PYZus{}d\PYZus{}tax}\PY{p}{(}\PY{n}{prices}\PY{p}{)}\PY{p}{,} \PY{n}{prices}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{Q\PYZus{}d\PYZus{}subsidy}\PY{p}{(}\PY{n}{prices}\PY{p}{)}\PY{p}{,} \PY{n}{prices}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{[}\PY{n}{p}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{k}{for} \PY{n}{p} \PY{o+ow}{in} \PY{n}{bal\PYZus{}points1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{n}{p}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{k}{for} \PY{n}{p} \PY{o+ow}{in} \PY{n}{bal\PYZus{}points1}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Точка ринкової рівноваги при податку зі сторони споживача }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{. P:}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{, Q:}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{tax\PYZus{}dem}\PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{bal\PYZus{}tax\PYZus{}dem}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{bal\PYZus{}tax\PYZus{}dem}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Точка ринкової рівноваги при податку зі сторони виробника }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{. P:}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{, Q:}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{tax\PYZus{}sup}\PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{bal\PYZus{}tax\PYZus{}sup}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{bal\PYZus{}tax\PYZus{}sup}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Точка ринкової рівноваги при субсидіях зі сторони споживача }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{. P:}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{, Q:}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{subsidy\PYZus{}dem}\PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{bal\PYZus{}subsidy\PYZus{}dem}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{bal\PYZus{}subsidy\PYZus{}dem}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Точка ринкової рівноваги при субсидіях зі сторони виробника }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{. P:}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{, Q:}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{subsidy\PYZus{}sup}\PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{bal\PYZus{}subsidy\PYZus{}sup}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{bal\PYZus{}subsidy\PYZus{}sup}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Lab1_files/Lab1_49_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Точка ринкової рівноваги при податку зі сторони споживача 5. P:10.0, Q:54.0
+Точка ринкової рівноваги при податку зі сторони виробника 5. P:9.0, Q:143.0
+Точка ринкової рівноваги при субсидіях зі сторони споживача 5. P:14.0, Q:143.0
+Точка ринкової рівноваги при субсидіях зі сторони виробника 5. P:15.0, Q:54.0
+
+    \end{Verbatim}
+
+    \subsubsection{Еквівалентний податок та
+субсидії}\label{ux435ux43aux432ux456ux432ux430ux43bux435ux43dux442ux43dux438ux439-ux43fux43eux434ux430ux442ux43eux43a-ux442ux430-ux441ux443ux431ux441ux438ux434ux456ux457}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{n}{eq\PYZus{}tax} \PY{o}{=} \PY{l+m+mf}{2.5}
+         \PY{n}{eq\PYZus{}subsidy} \PY{o}{=} \PY{l+m+mf}{2.5}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{n}{Q\PYZus{}d\PYZus{}eq\PYZus{}tax} \PY{o}{=} \PY{k}{lambda} \PY{n}{P}\PY{p}{:} \PY{n}{Q\PYZus{}d}\PY{p}{(}\PY{n}{P} \PY{o}{+} \PY{n}{eq\PYZus{}tax}\PY{p}{)}
+         \PY{n}{Q\PYZus{}d\PYZus{}eq\PYZus{}subsidy} \PY{o}{=} \PY{k}{lambda} \PY{n}{P}\PY{p}{:} \PY{n}{Q\PYZus{}d}\PY{p}{(}\PY{n}{P} \PY{o}{\PYZhy{}} \PY{n}{eq\PYZus{}subsidy}\PY{p}{)}
+         \PY{n}{Q\PYZus{}s\PYZus{}eq\PYZus{}tax} \PY{o}{=} \PY{k}{lambda} \PY{n}{P}\PY{p}{:} \PY{n}{Q\PYZus{}s}\PY{p}{(}\PY{n}{P} \PY{o}{+} \PY{n}{eq\PYZus{}tax}\PY{p}{)}
+         \PY{n}{Q\PYZus{}s\PYZus{}eq\PYZus{}subsidy} \PY{o}{=} \PY{k}{lambda} \PY{n}{P}\PY{p}{:} \PY{n}{Q\PYZus{}s}\PY{p}{(}\PY{n}{P} \PY{o}{\PYZhy{}} \PY{n}{eq\PYZus{}subsidy}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{n}{bal\PYZus{}eq\PYZus{}tax} \PY{o}{=} \PY{n}{intersection}\PY{p}{(}\PY{n}{Q\PYZus{}d\PYZus{}eq\PYZus{}tax}\PY{p}{,} \PY{n}{Q\PYZus{}s\PYZus{}eq\PYZus{}tax}\PY{p}{,} \PY{n}{prices}\PY{p}{)}
+         \PY{n}{bal\PYZus{}eq\PYZus{}subsidy} \PY{o}{=} \PY{n}{intersection}\PY{p}{(}\PY{n}{Q\PYZus{}d\PYZus{}eq\PYZus{}subsidy}\PY{p}{,} \PY{n}{Q\PYZus{}s\PYZus{}eq\PYZus{}subsidy}\PY{p}{,} \PY{n}{prices}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{n}{bal\PYZus{}points2} \PY{o}{=} \PY{p}{[}\PY{n}{bal\PYZus{}eq\PYZus{}tax}\PY{p}{,} \PY{n}{bal\PYZus{}eq\PYZus{}subsidy}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{Q\PYZus{}d}\PY{p}{(}\PY{n}{prices}\PY{p}{)}\PY{p}{,} \PY{n}{prices}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{Q\PYZus{}s}\PY{p}{(}\PY{n}{prices}\PY{p}{)}\PY{p}{,} \PY{n}{prices}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{Q\PYZus{}d\PYZus{}eq\PYZus{}tax}\PY{p}{(}\PY{n}{prices}\PY{p}{)}\PY{p}{,} \PY{n}{prices}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{Q\PYZus{}d\PYZus{}eq\PYZus{}subsidy}\PY{p}{(}\PY{n}{prices}\PY{p}{)}\PY{p}{,} \PY{n}{prices}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{Q\PYZus{}s\PYZus{}eq\PYZus{}tax}\PY{p}{(}\PY{n}{prices}\PY{p}{)}\PY{p}{,} \PY{n}{prices}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{Q\PYZus{}s\PYZus{}eq\PYZus{}subsidy}\PY{p}{(}\PY{n}{prices}\PY{p}{)}\PY{p}{,} \PY{n}{prices}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{[}\PY{n}{p}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{k}{for} \PY{n}{p} \PY{o+ow}{in} \PY{n}{bal\PYZus{}points2}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{n}{p}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{k}{for} \PY{n}{p} \PY{o+ow}{in} \PY{n}{bal\PYZus{}points2}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Точка ринкової рівноваги при еквівалентному податку }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{. P:}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{, Q:}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{eq\PYZus{}tax}\PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{bal\PYZus{}eq\PYZus{}tax}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{bal\PYZus{}eq\PYZus{}tax}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Точка ринкової рівноваги при еквівалентних субсидіях }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{. P:}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{, Q:}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{eq\PYZus{}tax}\PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{bal\PYZus{}eq\PYZus{}subsidy}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{bal\PYZus{}eq\PYZus{}subsidy}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Lab1_files/Lab1_55_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Точка ринкової рівноваги при еквівалентному податку 2.5. P:9.0, Q:96.0
+Точка ринкової рівноваги при еквівалентних субсидіях 2.5. P:14.0, Q:96.0
+
+    \end{Verbatim}
+
+    \subsubsection{Квота}\label{ux43aux432ux43eux442ux430}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{n}{quote} \PY{o}{=} \PY{n}{balance\PYZus{}point}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{/} \PY{l+m+mf}{1.2}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{k}{def} \PY{n+nf}{Q\PYZus{}s\PYZus{}quote}\PY{p}{(}\PY{n}{P}\PY{p}{)}\PY{p}{:}
+             \PY{n}{Q} \PY{o}{=} \PY{n}{Q\PYZus{}s}\PY{p}{(}\PY{n}{P}\PY{p}{)}
+             \PY{n}{Q}\PY{p}{[}\PY{n}{Q} \PY{o}{\PYZgt{}} \PY{n}{quote}\PY{p}{]} \PY{o}{=} \PY{n}{quote}
+             \PY{k}{return} \PY{n}{Q}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{n}{bal\PYZus{}quote} \PY{o}{=} \PY{n}{intersection}\PY{p}{(}\PY{n}{Q\PYZus{}d}\PY{p}{,} \PY{n}{Q\PYZus{}s\PYZus{}quote}\PY{p}{,} \PY{n}{prices}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{Q\PYZus{}d}\PY{p}{(}\PY{n}{prices}\PY{p}{)}\PY{p}{,} \PY{n}{prices}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{Q\PYZus{}s}\PY{p}{(}\PY{n}{prices}\PY{p}{)}\PY{p}{,} \PY{n}{prices}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{Q\PYZus{}s\PYZus{}quote}\PY{p}{(}\PY{n}{prices}\PY{p}{)}\PY{p}{,} \PY{n}{prices}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{bal\PYZus{}quote}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{bal\PYZus{}quote}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Точка ринкової рівноваги при квоті }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{. P:}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{, Q:}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{quote}\PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{bal\PYZus{}quote}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{bal\PYZus{}quote}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Lab1_files/Lab1_60_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Точка ринкової рівноваги при квоті 79.98002088286337. P:12.8, Q:79.8
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
