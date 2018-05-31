@@ -1,0 +1,3 @@
+spacy==2.0.11
+allennlp==0.4.3
+torch==0.3.1
